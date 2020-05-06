@@ -1,0 +1,137 @@
+:root {
+    --fontColor: #0091aa;
+    --colorHeading: #ffc31a;
+  }
+#content
+{
+    color: var(--colorHeading);
+}
+
+h2,h1
+{
+    color: var(--fontColor);
+}
+
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+h2 {
+    font-weight: 600;
+    text-align: center;
+}
+h3 {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+}
+p {
+    font-size: 13px;
+    color: #666;
+}
+.crow {
+    width: 90%;
+    max-width: 1080px;
+    margin: 40px auto;
+    display: block;
+    text-align: center;
+}
+.crow::after {
+    content: "";
+    clear: both;
+    display: table;
+    overflow: auto;
+}
+.crow .col {
+    float: left;
+    width: 25%;
+    position: relative;
+}
+@media (max-width: 1080px) {
+    .crow .col {
+    width: 33.3333%;
+    }
+}
+@media (max-width: 960px) {
+    .crow .col {
+    width: 50%;
+    }
+}
+@media (max-width: 580px) {
+    .crow .col {
+    width: 100%;
+    }
+}
+.pad {
+    padding: 10px;
+}
+.padx {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+a.card {
+    position: relative;
+    background: #fff;
+    z-index: 0;
+    -webkit-transition: border-color 0.175s ease, -webkit-transform 0.175s ease;
+    transition: border-color 0.175s ease, -webkit-transform 0.175s ease;
+    transition: transform 0.175s ease, border-color 0.175s ease;
+    transition: transform 0.175s ease, border-color 0.175s ease, -webkit-transform 0.175s ease;
+    display: block;
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid #d4ecff;
+    width: 100%;
+}
+a.card .content {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    display: block;
+    text-align: center;
+    top: 0;
+    left: 0;
+}
+a.card .content img {
+    -webkit-transition: width 0.4s cubic-bezier(0.155, 1.105, 0.295, 1.12), margin-bottom 0.1s linear;
+    transition: width 0.4s cubic-bezier(0.155, 1.105, 0.295, 1.12), margin-bottom 0.1s linear;
+    width: 60%;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+a.card .content p {
+    opacity: 0;
+    -webkit-transition: opacity 0.1s linear;
+    transition: opacity 0.1s linear;
+}
+a.card:hover {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0,0,0,0.08);
+    z-index: 1;
+    border-width: 2px;
+    border-color: #5fa0d6;
+}
+a.card:hover img {
+    width: 30%;
+    margin-bottom: 0px;
+}
+a.card:hover p {
+    opacity: 1;
+}
+.square:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: 100%;
+}
+.price{
+    font-size: 15px;
+    margin-left: 1px;
+}
+.crow h3{
+    color: #5fa0d6;
+}
