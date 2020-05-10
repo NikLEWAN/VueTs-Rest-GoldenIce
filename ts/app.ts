@@ -23,7 +23,7 @@ new Vue({
         this.getAllicecreams()
     },
     methods: {
-        getAllicecreams() {
+        getAllicecreams() : void {
             axios.get<Iicecream[]>(baseUri)
                 .then((response: AxiosResponse<Iicecream[]>) => {
                     this.icecreams = response.data
@@ -33,7 +33,20 @@ new Vue({
                     alert(error.message) // https://www.w3schools.com/js/js_popup.asp
                 })
         },
-        deleteicecream(deleteId: number) {
+        loadBase64(ev) : void {
+            const file = ev.target.files[0];
+            const reader = new FileReader();
+      
+            reader.onload = (e) => {
+                this.formData.imgUrl = e.target.result;
+                //console.log(this.formData.imgUrl);
+            }
+            reader.onerror = (e) => {
+                alert(e);
+              };
+            reader.readAsDataURL(file);
+        },
+        deleteicecream(deleteId: number) : void {
             let uri: string = baseUri + "/" + deleteId
             axios.delete<void>(uri)
                 .then((response: AxiosResponse<void>) => {
@@ -45,7 +58,7 @@ new Vue({
                     alert(error.message)
                 })
         },
-        addicecream() {
+        addicecream() : void {
             axios.post<Iicecream>(baseUri, this.formData)
                 .then((response: AxiosResponse) => {
                     let message: string = "response " + response.status + " " + response.statusText

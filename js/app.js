@@ -25,17 +25,17 @@ new Vue({
                 alert(error.message); // https://www.w3schools.com/js/js_popup.asp
             });
         },
-        loadBase64(ev) {
-            const file = ev.target.files[0];
-            const reader = new FileReader();
-      
-            reader.onload = (e) => {
-                this.formData.imgUrl = e.target.result;
-                console.log(this.formData.imgUrl);
-            }
-            reader.onerror = function(error) {
-                alert(error);
-              };
+        loadBase64: function (ev) {
+            var _this = this;
+            var file = ev.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                _this.formData.imgUrl = e.target.result;
+                //console.log(this.formData.imgUrl);
+            };
+            reader.onerror = function (e) {
+                alert(e);
+            };
             reader.readAsDataURL(file);
         },
         deleteicecream: function (deleteId) {
