@@ -1,6 +1,6 @@
 :root {
-    --fontColor: #0091aa;
-    --colorHeading: #ffc31a;
+    --fontColor: #ffc31a;
+    --colorHeading: #0091aa;
   }
 #content
 {
@@ -134,4 +134,10 @@ a.card:hover p {
 }
 .crow h3{
     color: #5fa0d6;
+}
+#app{
+    margin-top: 120px;
+}
+.navbar-brand {
+    margin-left: 1rem;
 }

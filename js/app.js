@@ -25,6 +25,19 @@ new Vue({
                 alert(error.message); // https://www.w3schools.com/js/js_popup.asp
             });
         },
+        loadBase64(ev) {
+            const file = ev.target.files[0];
+            const reader = new FileReader();
+      
+            reader.onload = (e) => {
+                this.formData.imgUrl = e.target.result;
+                console.log(this.formData.imgUrl);
+            }
+            reader.onerror = function(error) {
+                alert(error);
+              };
+            reader.readAsDataURL(file);
+        },
         deleteicecream: function (deleteId) {
             var _this = this;
             var uri = baseUri + "/" + deleteId;

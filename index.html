@@ -5,9 +5,9 @@
     <title>Golden Ice</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" type="text/css" href="./css/app.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" media="print"
-        onload="this.media='all'">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -17,26 +17,36 @@
 </head>
 
 <body>
-    <div id="app">
-        <div class="container">
-            <div class="row" style="text-align: center;">
-                <div class="col-md-3"></div>
-                <div class="col-md-6" style="padding-top: 30px;">
-                    <h1>Golden Ice</h1>
-                </div>
-                <div class="col-md-3" style="padding-top: 40px;">
-                    <a href="./admin/index.html">Login</a>
-                </div>
-            </div>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse"
+            data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#"><h1>Golden Ice</h1></a>
+
+        <div class="navbar-collapse collapse" id="navbarsExampleDefault" aria-expanded="false" style="">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./admin/index.html">Login</a>
+                </li>
+            </ul>
         </div>
+    </nav>
+    <div id="app">
         <div class="crow" v-if="icecreams.length">
             <h2>{{icecreams.length}} Icecreams</h2>
             <div class="col pad" v-for="icecream in icecreams">
                 <a class="card square" href="#">
-                    <div class="content padx"><img
-                            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/483169/cupcake@1x.png">
-                        <h3> 
-                            <span style="display:one;"> ID{{icecream.id}} </span> 
+                    <div class="content padx">
+                        <img v-if="icecream.imgUrl" :src="icecream.imgUrl">
+                        <img v-else src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/483169/cupcake@1x.png">
+                        <h3>    
+                            <span>{{icecream.ImgUrl}}</span>
+                            <span style="display:one;"> ID{{icecream.id}} </span>
                             <span>N{{icecream.name}} </span>
                             <span class="price">{{icecream.price}} kr</span>
                         </h3>
@@ -60,7 +70,8 @@
         <h2>Add</h2>
         <input v-model="formData.name" placeholder="model" type="text" />
         <input v-model="formData.description" placeholder="Description" type="text" />
-        <input v-model="formData.ImgUrl" placeholder="ImgUrl" type="text" />
+        <input v-on:change="loadBase64" type='file'>
+        <!-- <input v-model="formData.ImgUrl" placeholder="ImgUrl" type="text" /> -->
         <input v-model.number="formData.price" placeholder="price" type="number" />
         <input v-model="formData.size" placeholder="Size" type="text" />
         <button v-on:click="addicecream()" class="btn btn-success">Add</button>
