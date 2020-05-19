@@ -70,7 +70,7 @@
         <h2>Add</h2>
         <input v-model="formData.name" placeholder="model" type="text" />
         <input v-model="formData.description" placeholder="Description" type="text" />
-        <input v-on:change="loadBase64" type='file'>
+        <input v-on:change="loadBase64" type='file' accept="image/png, image/jpeg">
         <!-- <input v-model="formData.ImgUrl" placeholder="ImgUrl" type="text" /> -->
         <input v-model.number="formData.price" placeholder="price" type="number" />
         <input v-model="formData.size" placeholder="Size" type="text" />
