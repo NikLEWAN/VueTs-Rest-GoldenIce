@@ -1,14 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Golden Ice Admin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" type="text/css" href="../css/app.css" media="print" onload="this.media='all'">
 
-    <script src="../js/auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" defer></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" defer></script>
+
 </head>
 <body>
-    Admin panel
-    <button onclick="logout()">Show cookies</button>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse"
+            data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#"><h1>Golden Ice: Admin</h1></a>
+
+        <div class="navbar-collapse collapse" id="navbarsExampleDefault" aria-expanded="false" style="">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./index.html">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="app">
+        <div class="crow" v-if="icecreams.length">
+            <h2>{{icecreams.length}} Icecreams</h2>
+            <div class="col pad" v-for="icecream in icecreams">
+                <a class="card square" href="#">
+                    <div class="content padx">
+                        <img v-if="icecream.imgUrl" :src="icecream.imgUrl">
+                        <img v-else src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/483169/cupcake@1x.png">
+                        <h3>    
+                            <h4 style="display:one;"> Id {{icecream.id}} </h4>
+                            <span>{{icecream.name}} </span>
+                            <span class="price" v-if="weathernow.degress > weatherDisc">{{icecream.price}} kr</span>
+                            <span class="price" v-else>{{icecream.price * disc}} kr</span>
+                        </h3>
+                        <p><b>Beskrivelse:</b> {{icecream.description}}<br><b>Størrelse:</b> {{icecream.size}}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <span class="crow" v-else>No icecreams</span>
+
+
+        <div style="display: flex; flex-direction: column; max-width: 300px; margin: auto;">
+            <h2>Get All</h2>
+            <button v-on:click="getAllicecreams" class="btn btn-primary">Get all icecreams</button>
+        </div>
+
+        <div style="display: flex; flex-direction: column; max-width: 300px; margin: auto;">
+            <h2>Delete</h2>
+            <input class="form-control" v-model.number="deleteId" placeholder="id" type="number" />
+            <button v-on:click="deleteicecream(deleteId)" class="btn btn-warning">Delete</button>
+            {{deleteMessage}}
+        </div>
+
+        <div style="display: flex; flex-direction: column; max-width: 300px; margin: auto;">
+            <h2>Add</h2>
+            <h4>Navn:</h4>
+            <input v-model="formData.name" placeholder="model" type="text" />
+            <h4>Beskrivelse:</h4>
+            <input v-model="formData.description" placeholder="Description" type="text" />
+            <h4>Billed:</h4>
+            <input v-on:change="loadBase64" type='file' accept="image/png, image/jpeg">
+            <!-- <input v-model="formData.ImgUrl" placeholder="ImgUrl" type="text" /> -->
+            <h4>Pris:</h4>
+            <input v-model.number="formData.price" placeholder="price" type="number" />
+            <h4>Størrelse:</h4>
+            <input v-model="formData.size" placeholder="Size" type="text" />
+            <button v-on:click="addicecream()" class="btn btn-success">Add</button>
+            <div>{{addMessage}}</div>
+
+        </div>
+    </div>
+    <script src="../js/auth.js"></script>
 </body>
 </html>

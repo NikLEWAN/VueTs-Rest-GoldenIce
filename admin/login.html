@@ -13,7 +13,7 @@
 
 <body>
     <div id="app">
-        <form @submit="checkForm" method="post" novalidate="true">
+        <form @submit="checkForm" method="post" novalidate="true" style="display: flex; flex-direction: column; align-items: center; max-width: 500px; margin: 100px auto 0; ">
 
             <p v-if="errors.length">
                 <b>Please correct the following error(s):</b>

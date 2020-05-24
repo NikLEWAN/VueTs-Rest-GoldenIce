@@ -1,17 +1,21 @@
 "use strict";
 var baseUri = "https://goldenice20200505111435.azurewebsites.net/api/IceCreams";
+var weatherUri = "https://goldenice20200505111435.azurewebsites.net/api/weathers";
+var weekUri = "https://samples.openweathermap.org/data/2.5/weather?q=copenhagen,uk&appid=439d4b804bc8187953eb36d2a8c26a02";
 new Vue({
     el: "#app",
     data: {
         icecreams: [],
+        weathers: [],
+        weathernow: { degress: 16, timenow: "" },
+        disc: 0.65,
+        weatherDisc: 15,
         errors: [],
-        deleteId: 0,
-        deleteMessage: "",
-        formData: { name: "", description: "", imgUrl: "", price: 0, size: "" },
-        addMessage: ""
+        formData: { name: "", description: "", imgUrl: "", price: 0, size: "" }
     },
     mounted: function () {
         this.getAllicecreams();
+        this.getWeather();
     },
     methods: {
         getAllicecreams: function () {
@@ -25,42 +29,15 @@ new Vue({
                 alert(error.message); // https://www.w3schools.com/js/js_popup.asp
             });
         },
-        loadBase64: function (ev) {
+        getWeather: function () {
             var _this = this;
-            var file = ev.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                _this.formData.imgUrl = e.target.result;
-                //console.log(this.formData.imgUrl);
-            };
-            reader.onerror = function (e) {
-                alert(e);
-            };
-            reader.readAsDataURL(file);
-        },
-        deleteicecream: function (deleteId) {
-            var _this = this;
-            var uri = baseUri + "/" + deleteId;
-            axios.delete(uri)
+            axios.get(weatherUri)
                 .then(function (response) {
-                _this.deleteMessage = response.status + " " + response.statusText;
-                _this.getAllicecreams();
+                console.log(response.data.slice(-1)[0]);
+                _this.weathernow = response.data.slice(-1)[0];
             })
                 .catch(function (error) {
-                //this.deleteMessage = error.message
-                alert(error.message);
-            });
-        },
-        addicecream: function () {
-            var _this = this;
-            axios.post(baseUri, this.formData)
-                .then(function (response) {
-                var message = "response " + response.status + " " + response.statusText;
-                _this.addMessage = message;
-                _this.getAllicecreams();
-            })
-                .catch(function (error) {
-                // this.addMessage = error.message
+                //this.message = error.message
                 alert(error.message);
             });
         }
